@@ -1,1 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Management</title>
+    <script>
+        function generateRandomMac() {
+            // Tạo một địa chỉ MAC ngẫu nhiên
+            var mac = "00:16:3e";
+            for (var i = 0; i < 3; i++) {
+                mac += ":" + Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+            }
 
+            // Điền địa chỉ MAC vào trường nhập liệu
+            document.getElementById("mac_address").value = mac;
+        }
+    </script>
+</head>
+<body>
+    <h1>Configuration Management</h1>
+
+    <h2>Configurations</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>MAC Address</th>
+                <th>Interface</th>
+                <th>IP Address</th>
+                <th>Port</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for section, params in config.items() %}
+            <tr>
+                <td>{{ params.username }}</td>
+                <td>{{ params.password }}</td>
+                <td>{{ params.mac_address }}</td>
+                <td>{{ params.interface }}</td>
+                <td>{{ params.ip_address }}</td>
+                <td>{{ params.port }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add Configuration</h2>
+    <form action="/configure" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+
+        <label for="mac_address">MAC Address:</label>
+        <input type="text" id="mac_address" name="mac_address" required><br>
+
+        <label for="interface">Interface:</label>
+        <input type="text" id="interface" name="interface" required><br>
+
+        <label for="ip_address">IP Address:</label>
+        <input type="text" id="ip_address" name="ip_address" required><br>
+
+        <label for="port">Port:</label>
+        <input type="text" id="port" name="port" required><br>
+
+        <!-- Thêm nút để tạo địa chỉ MAC ngẫu nhiên -->
+        <button type="button" onclick="generateRandomMac()">Generate Random MAC</button>
+
+        <input type="submit" value="Add Configuration">
+    </form>
+</body>
+</html>

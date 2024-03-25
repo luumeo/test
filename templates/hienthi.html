@@ -1,0 +1,43 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Status</title>
+    <style>
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Configuration Status</h1>
+    <ul>
+        {% for section, options in config.items() %}
+            <li>
+                <strong>{{ section }}</strong>
+                <ul>
+                    <li>Username: {{ options.username }}</li>
+                    <li>Password: {{ options.password }}</li>
+                    <li>MAC Address: {{ options.mac_address }}</li>
+                    <li>Interface: {{ options.interface }}</li>
+                    <li>IP Address: {{ options.ip_address }}</li>
+                    <li>Port: {{ options.port }}</li>
+                </ul>
+                {% if options.public_ip and options.lan_ip %}
+                    <span class="success">Connection established</span>
+                {% else %}
+                    <span class="error">Connection failed</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
