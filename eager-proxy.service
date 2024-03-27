@@ -1,0 +1,15 @@
+[Unit]
+Description=Eager Proxy App running on Ubuntu
+
+[Service]
+WorkingDirectory=/var/www/eg_proxy
+ExecStart=dotnet /var/www/eg_proxy/MixProxyApp.dll --urls "http://0.0.0.0:6868;http://0.0.0.0:10000"
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+User=root
+Environment=ASPNETCORE_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target
